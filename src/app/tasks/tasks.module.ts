@@ -20,6 +20,8 @@ import { tasksReducer } from './../core/+store';
     FormsModule,
     TasksRoutingModule,
     TasksServicesModule,
+
+    StoreModule.forRoot({}),
     StoreModule.forFeature('tasks', tasksReducer)
   ],
   providers: []
