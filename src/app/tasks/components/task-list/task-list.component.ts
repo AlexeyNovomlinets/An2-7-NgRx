@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { TaskModel } from './../../models/task.model';
-import { TaskPromiseService } from './../../services';
 
 // @Ngrx
 import { Store, select } from '@ngrx/store';
@@ -16,19 +15,18 @@ import * as TasksActions from './../../../core/+store/tasks/tasks.actions';
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent implements OnInit {
-  tasks: Promise<Array<TaskModel>>;
-
   tasksState$: Observable<TasksState>;
 
   constructor(
     private router: Router,
-    private taskPromiseService: TaskPromiseService,
     private store: Store<AppState>
   ) {}
 
   ngOnInit() {
     console.log('We have a store! ', this.store);
     this.tasksState$ = this.store.pipe(select('tasks'));
+
+    this.store.dispatch(new TasksActions.GetTasks());
   }
 
   onCreateTask() {
@@ -46,9 +44,9 @@ export class TaskListComponent implements OnInit {
   }
 
   onDeleteTask(task: TaskModel) {
-    this.taskPromiseService
-      .deleteTask(task)
-      .then(() => (this.tasks = this.taskPromiseService.getTasks()))
-      .catch(err => console.log(err));
+    // this.taskPromiseService
+    //   .deleteTask(task)
+    //   .then(() => (this.tasks = this.taskPromiseService.getTasks()))
+    //   .catch(err => console.log(err));
   }
 }
