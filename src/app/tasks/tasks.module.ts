@@ -8,6 +8,8 @@ import { TasksServicesModule } from './tasks-services.module';
 
 import { StoreModule } from '@ngrx/store';
 import { tasksReducer } from './../core/+store';
+import { EffectsModule } from '@ngrx/effects';
+import { TasksEffects } from '../core/+store/tasks/tasks.effects';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { tasksReducer } from './../core/+store';
     TasksRoutingModule,
     TasksServicesModule,
 
-    StoreModule.forFeature('tasks', tasksReducer)
+    StoreModule.forFeature('tasks', tasksReducer),
+    EffectsModule.forFeature([TasksEffects])
   ],
   providers: []
 })
